@@ -1,0 +1,163 @@
+{
+  "retie": {
+    "version": "Resolución 40117 de 2024",
+    "nombre": "Reglamento Técnico de Instalaciones Eléctricas",
+    "factores_seguridad": {
+      "tension_maxima_viento": {
+        "valor": 50,
+        "unidad": "porcentaje",
+        "descripcion": "Tensión máxima bajo condición de viento máximo respecto a carga de rotura",
+        "hipotesis": "A"
+      },
+      "tension_maxima_temperatura_minima": {
+        "valor": 35,
+        "unidad": "porcentaje",
+        "descripcion": "Tensión máxima bajo temperatura mínima sin viento respecto a carga de rotura",
+        "hipotesis": "B"
+      },
+      "tension_eds": {
+        "valor_minimo": 15,
+        "valor_maximo": 20,
+        "valor_tipico": 18,
+        "unidad": "porcentaje",
+        "descripcion": "Tensión de operación diaria (Every Day Stress) respecto a carga de rotura",
+        "hipotesis": "C"
+      }
+    },
+    "distancias_seguridad_metros": {
+      "34.5": {
+        "nivel_tension_kV": 34.5,
+        "terreno_transitable": 5.0,
+        "terreno_no_transitable": 4.5,
+        "edificaciones": 3.7,
+        "carreteras": 6.1,
+        "ferrocarriles": 7.0,
+        "lineas_bt": 2.0,
+        "lineas_comunicaciones": 2.0,
+        "aguas_navegables": 8.5,
+        "aguas_no_navegables": 5.0
+      },
+      "57.5": {
+        "nivel_tension_kV": 57.5,
+        "terreno_transitable": 5.0,
+        "terreno_no_transitable": 4.5,
+        "edificaciones": 3.7,
+        "carreteras": 6.1,
+        "ferrocarriles": 7.0,
+        "lineas_bt": 2.0,
+        "lineas_comunicaciones": 2.0,
+        "aguas_navegables": 8.5,
+        "aguas_no_navegables": 5.0
+      },
+      "115": {
+        "nivel_tension_kV": 115,
+        "terreno_transitable": 5.5,
+        "terreno_no_transitable": 5.0,
+        "edificaciones": 4.0,
+        "carreteras": 6.7,
+        "ferrocarriles": 7.5,
+        "lineas_bt": 2.5,
+        "lineas_comunicaciones": 2.5,
+        "aguas_navegables": 9.0,
+        "aguas_no_navegables": 5.5
+      },
+      "230": {
+        "nivel_tension_kV": 230,
+        "terreno_transitable": 6.5,
+        "terreno_no_transitable": 6.0,
+        "edificaciones": 4.5,
+        "carreteras": 8.5,
+        "ferrocarriles": 9.0,
+        "lineas_bt": 3.5,
+        "lineas_comunicaciones": 3.5,
+        "aguas_navegables": 10.5,
+        "aguas_no_navegables": 6.5
+      },
+      "500": {
+        "nivel_tension_kV": 500,
+        "terreno_transitable": 9.0,
+        "terreno_no_transitable": 8.5,
+        "edificaciones": 6.5,
+        "carreteras": 11.5,
+        "ferrocarriles": 12.5,
+        "lineas_bt": 5.5,
+        "lineas_comunicaciones": 5.5,
+        "aguas_navegables": 14.0,
+        "aguas_no_navegables": 9.0
+      }
+    },
+    "factor_correccion_altitud": {
+      "altitud_referencia_msnm": 1000,
+      "tension_minima_aplicacion_kV": 57.5,
+      "formula": "1 + 0.03 * ((altitud - 1000) / 300)",
+      "descripcion": "Factor multiplicador para distancias a altitudes mayores a 1000 msnm"
+    }
+  },
+  "ieee_738": {
+    "version": "2023",
+    "nombre": "Standard for Calculating the Current-Temperature Relationship of Bare Overhead Conductors",
+    "parametros_default": {
+      "emisividad": 0.5,
+      "absortividad": 0.5,
+      "radiacion_solar_max_W_m2": 1000,
+      "temperatura_conductor_normal_C": 75,
+      "temperatura_conductor_emergencia_C": 100,
+      "temperatura_conductor_maxima_C": 150
+    }
+  },
+  "iec_60826": {
+    "version": "2017",
+    "nombre": "Design criteria of overhead transmission lines",
+    "coeficiente_arrastre_conductor": 1.0,
+    "coeficiente_arrastre_cadenas": 1.2
+  },
+  "ntc_2050": {
+    "version": "2023",
+    "nombre": "Código Eléctrico Colombiano",
+    "descripcion": "Basado en NFPA 70 - National Electrical Code"
+  },
+  "temperaturas_operacion": {
+    "conductor_normal": {
+      "ACSR": 75,
+      "AAAC": 75,
+      "AAC": 75,
+      "unidad": "°C"
+    },
+    "conductor_emergencia": {
+      "ACSR": 100,
+      "AAAC": 90,
+      "AAC": 90,
+      "unidad": "°C"
+    },
+    "conductor_maxima_absoluta": {
+      "ACSR": 150,
+      "AAAC": 120,
+      "AAC": 120,
+      "unidad": "°C"
+    }
+  },
+  "velocidades_viento_retie": {
+    "descripcion": "Velocidades de viento según zona geográfica colombiana",
+    "zona_1_costa_caribe": {
+      "velocidad_km_h": 100,
+      "velocidad_m_s": 27.8,
+      "periodo_retorno_anos": 50
+    },
+    "zona_2_guajira": {
+      "velocidad_km_h": 162,
+      "velocidad_m_s": 45.0,
+      "periodo_retorno_anos": 50
+    },
+    "zona_3_interior": {
+      "velocidad_km_h": 90,
+      "velocidad_m_s": 25.0,
+      "periodo_retorno_anos": 50
+    },
+    "zona_4_san_andres": {
+      "velocidad_km_h": 180,
+      "velocidad_m_s": 50.0,
+      "periodo_retorno_anos": 50,
+      "nota": "Zona de huracanes"
+    }
+  }
+}

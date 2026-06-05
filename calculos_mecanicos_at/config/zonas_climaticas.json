@@ -1,0 +1,148 @@
+{
+  "zonas": {
+    "costa_caribe_general": {
+      "nombre": "Costa Caribe - General",
+      "departamentos": ["Atlántico", "Bolívar", "Cesar", "Córdoba", "Magdalena", "Sucre"],
+      "altitud_referencia_msnm": 50,
+      "temperatura_minima_C": 22,
+      "temperatura_media_C": 28,
+      "temperatura_maxima_ambiente_C": 38,
+      "velocidad_viento_diseno_km_h": 100,
+      "velocidad_viento_diseno_m_s": 27.8,
+      "humedad_relativa_media_pct": 80,
+      "zona_retie": "Cálido Húmedo"
+    },
+    "la_guajira": {
+      "nombre": "La Guajira",
+      "departamentos": ["La Guajira"],
+      "altitud_referencia_msnm": 20,
+      "temperatura_minima_C": 24,
+      "temperatura_media_C": 30,
+      "temperatura_maxima_ambiente_C": 40,
+      "velocidad_viento_diseno_km_h": 162,
+      "velocidad_viento_diseno_m_s": 45.0,
+      "humedad_relativa_media_pct": 65,
+      "zona_retie": "Cálido Seco - Viento Extremo"
+    },
+    "valles_interandinos": {
+      "nombre": "Valles Interandinos",
+      "departamentos": ["Valle del Cauca", "Huila", "Tolima"],
+      "altitud_referencia_msnm": 1000,
+      "temperatura_minima_C": 18,
+      "temperatura_media_C": 24,
+      "temperatura_maxima_ambiente_C": 35,
+      "velocidad_viento_diseno_km_h": 80,
+      "velocidad_viento_diseno_m_s": 22.2,
+      "humedad_relativa_media_pct": 70,
+      "zona_retie": "Templado Seco"
+    },
+    "altiplano_cundiboyacense": {
+      "nombre": "Altiplano Cundiboyacense",
+      "departamentos": ["Cundinamarca", "Boyacá"],
+      "altitud_referencia_msnm": 2600,
+      "temperatura_minima_C": 5,
+      "temperatura_media_C": 14,
+      "temperatura_maxima_ambiente_C": 25,
+      "velocidad_viento_diseno_km_h": 90,
+      "velocidad_viento_diseno_m_s": 25.0,
+      "humedad_relativa_media_pct": 75,
+      "zona_retie": "Frío"
+    },
+    "antioquia_eje_cafetero": {
+      "nombre": "Antioquia y Eje Cafetero",
+      "departamentos": ["Antioquia", "Caldas", "Risaralda", "Quindío"],
+      "altitud_referencia_msnm": 1500,
+      "temperatura_minima_C": 12,
+      "temperatura_media_C": 20,
+      "temperatura_maxima_ambiente_C": 30,
+      "velocidad_viento_diseno_km_h": 85,
+      "velocidad_viento_diseno_m_s": 23.6,
+      "humedad_relativa_media_pct": 78,
+      "zona_retie": "Templado Húmedo"
+    },
+    "santanderes": {
+      "nombre": "Santanderes",
+      "departamentos": ["Santander", "Norte de Santander"],
+      "altitud_referencia_msnm": 1000,
+      "temperatura_minima_C": 12,
+      "temperatura_media_C": 23,
+      "temperatura_maxima_ambiente_C": 34,
+      "velocidad_viento_diseno_km_h": 90,
+      "velocidad_viento_diseno_m_s": 25.0,
+      "humedad_relativa_media_pct": 72,
+      "zona_retie": "Templado"
+    },
+    "orinoquia_llanos": {
+      "nombre": "Orinoquía - Llanos Orientales",
+      "departamentos": ["Meta", "Casanare", "Arauca", "Vichada"],
+      "altitud_referencia_msnm": 300,
+      "temperatura_minima_C": 20,
+      "temperatura_media_C": 27,
+      "temperatura_maxima_ambiente_C": 38,
+      "velocidad_viento_diseno_km_h": 90,
+      "velocidad_viento_diseno_m_s": 25.0,
+      "humedad_relativa_media_pct": 75,
+      "zona_retie": "Cálido Húmedo"
+    },
+    "amazonia": {
+      "nombre": "Amazonía",
+      "departamentos": ["Amazonas", "Caquetá", "Putumayo", "Guaviare", "Vaupés", "Guainía"],
+      "altitud_referencia_msnm": 200,
+      "temperatura_minima_C": 22,
+      "temperatura_media_C": 26,
+      "temperatura_maxima_ambiente_C": 35,
+      "velocidad_viento_diseno_km_h": 70,
+      "velocidad_viento_diseno_m_s": 19.4,
+      "humedad_relativa_media_pct": 85,
+      "zona_retie": "Cálido Húmedo"
+    },
+    "pacifico": {
+      "nombre": "Pacífico",
+      "departamentos": ["Chocó", "Cauca (costa)", "Nariño (costa)"],
+      "altitud_referencia_msnm": 50,
+      "temperatura_minima_C": 22,
+      "temperatura_media_C": 26,
+      "temperatura_maxima_ambiente_C": 34,
+      "velocidad_viento_diseno_km_h": 80,
+      "velocidad_viento_diseno_m_s": 22.2,
+      "humedad_relativa_media_pct": 90,
+      "zona_retie": "Cálido Húmedo"
+    },
+    "san_andres_providencia": {
+      "nombre": "San Andrés y Providencia",
+      "departamentos": ["San Andrés y Providencia"],
+      "altitud_referencia_msnm": 10,
+      "temperatura_minima_C": 25,
+      "temperatura_media_C": 28,
+      "temperatura_maxima_ambiente_C": 35,
+      "velocidad_viento_diseno_km_h": 180,
+      "velocidad_viento_diseno_m_s": 50.0,
+      "humedad_relativa_media_pct": 82,
+      "zona_retie": "Cálido Húmedo - Zona Huracanes"
+    },
+    "nariño_interior": {
+      "nombre": "Nariño Interior",
+      "departamentos": ["Nariño (interior)"],
+      "altitud_referencia_msnm": 2500,
+      "temperatura_minima_C": 6,
+      "temperatura_media_C": 15,
+      "temperatura_maxima_ambiente_C": 24,
+      "velocidad_viento_diseno_km_h": 85,
+      "velocidad_viento_diseno_m_s": 23.6,
+      "humedad_relativa_media_pct": 80,
+      "zona_retie": "Frío"
+    },
+    "cauca_interior": {
+      "nombre": "Cauca Interior",
+      "departamentos": ["Cauca (interior)"],
+      "altitud_referencia_msnm": 1800,
+      "temperatura_minima_C": 10,
+      "temperatura_media_C": 18,
+      "temperatura_maxima_ambiente_C": 28,
+      "velocidad_viento_diseno_km_h": 80,
+      "velocidad_viento_diseno_m_s": 22.2,
+      "humedad_relativa_media_pct": 78,
+      "zona_retie": "Templado Húmedo"
+    }
+  }
+}

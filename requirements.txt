@@ -1,0 +1,2 @@
+# Dependencias del proyecto (ver calculos_mecanicos_at/requirements.txt)
+-r calculos_mecanicos_at/requirements.txt

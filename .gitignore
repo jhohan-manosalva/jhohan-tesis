@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+env/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Claude Code (configuración local)
+.claude/
+
+# Sistema operativo
+Thumbs.db
+.DS_Store

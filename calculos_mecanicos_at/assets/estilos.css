@@ -1,0 +1,233 @@
+/* Estilos CSS personalizados para la aplicación Streamlit */
+
+/* Colores principales */
+:root {
+    --primary-color: #1a5276;
+    --secondary-color: #2874a6;
+    --success-color: #1e8449;
+    --warning-color: #d4ac0d;
+    --danger-color: #c0392b;
+    --info-color: #2980b9;
+    --light-bg: #eaf2f8;
+    --dark-text: #2c3e50;
+    --light-text: #5d6d7e;
+}
+
+/* Encabezado principal */
+.main-header {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, #eaf2f8 0%, #d4e6f1 100%);
+    border-radius: 10px;
+}
+
+/* Subencabezado */
+.sub-header {
+    font-size: 1.2rem;
+    color: var(--light-text);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* Tarjetas de información */
+.info-card {
+    background-color: var(--light-bg);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border-left: 5px solid var(--secondary-color);
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.info-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.info-card h4 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+/* Tarjetas de éxito */
+.success-card {
+    background-color: #e8f8f5;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border-left: 5px solid var(--success-color);
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.success-card h4 {
+    color: var(--success-color);
+    margin-bottom: 0.5rem;
+}
+
+/* Tarjetas de advertencia */
+.warning-card {
+    background-color: #fef9e7;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border-left: 5px solid var(--warning-color);
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.warning-card h4 {
+    color: #9a7b0a;
+    margin-bottom: 0.5rem;
+}
+
+/* Tarjetas de error */
+.error-card {
+    background-color: #fdedec;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border-left: 5px solid var(--danger-color);
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Métricas personalizadas */
+.metric-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.metric-label {
+    font-size: 0.9rem;
+    color: var(--light-text);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Disclaimer/Aviso */
+.disclaimer {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    color: #6c757d;
+    border: 1px solid #dee2e6;
+    margin: 1rem 0;
+}
+
+/* Tablas */
+.dataframe-container {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Botones personalizados */
+.stButton > button {
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.stButton > button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Sidebar */
+.css-1d391kg {
+    background-color: #f8f9fa;
+}
+
+/* Expanders */
+.streamlit-expanderHeader {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* Inputs */
+.stTextInput > div > div > input,
+.stNumberInput > div > div > input,
+.stSelectbox > div > div > select {
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.stTextInput > div > div > input:focus,
+.stNumberInput > div > div > input:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 2px rgba(40, 116, 166, 0.2);
+}
+
+/* Progress bar */
+.stProgress > div > div > div {
+    background-color: var(--secondary-color);
+}
+
+/* Separador */
+hr {
+    border: none;
+    border-top: 2px solid #eee;
+    margin: 1.5rem 0;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    color: var(--light-text);
+    font-size: 0.85rem;
+    padding: 2rem 0;
+    border-top: 1px solid #eee;
+    margin-top: 2rem;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .main-header {
+        font-size: 1.8rem;
+    }
+
+    .info-card, .success-card, .warning-card {
+        padding: 1rem;
+    }
+
+    .metric-value {
+        font-size: 1.5rem;
+    }
+}
+
+/* Iconos de estado */
+.status-ok::before {
+    content: "✓";
+    color: var(--success-color);
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+.status-error::before {
+    content: "✗";
+    color: var(--danger-color);
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+.status-warning::before {
+    content: "⚠";
+    color: var(--warning-color);
+    font-weight: bold;
+    margin-right: 0.5rem;
+}

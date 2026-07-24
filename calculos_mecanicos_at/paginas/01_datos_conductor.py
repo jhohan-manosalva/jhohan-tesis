@@ -7,8 +7,13 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from pathlib import Path
+import sys
 
-st.set_page_config(page_title="Datos del Conductor", page_icon="📊", layout="wide")
+# Agregar el directorio padre al path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from utils.estilos import encabezado_pagina
+
 
 # Constantes de materiales para ACSR
 E_ALUMINIO = 6300    # kgf/mm² - Módulo de elasticidad del aluminio EC
@@ -111,13 +116,12 @@ def conductor_a_dict(row):
 df_conductores = cargar_conductores_excel()
 
 # Título
-st.title("📊 Datos del Conductor ACSR")
-st.markdown("""
-Seleccione el conductor ACSR para el diseño de la línea.
-Los datos provienen del catálogo **CABLES ACSR.xlsx** con 67 conductores normalizados.
-""")
-
-st.markdown("---")
+encabezado_pagina(
+    "🔌",
+    "Datos del Conductor ACSR",
+    "Seleccione el conductor ACSR para el diseño de la línea. Los datos provienen "
+    "del catálogo <b>CABLES ACSR.xlsx</b> con 67 conductores normalizados."
+)
 
 # Selección de conductor
 col1, col2 = st.columns([1, 2])
@@ -223,7 +227,7 @@ with col_prop1:
             "kgf/mm²", "-", "mm"
         ]
     }
-    st.dataframe(pd.DataFrame(props_mecanicas), use_container_width=True, hide_index=True)
+    st.dataframe(pd.DataFrame(props_mecanicas), width='stretch', hide_index=True)
 
 with col_prop2:
     st.markdown("#### Propiedades Calculadas y Eléctricas")
@@ -250,7 +254,7 @@ with col_prop2:
             "Ω/km", "A", "mm"
         ]
     }
-    st.dataframe(pd.DataFrame(props_calc), use_container_width=True, hide_index=True)
+    st.dataframe(pd.DataFrame(props_calc), width='stretch', hide_index=True)
 
     # Fórmulas utilizadas
     st.markdown("#### Fórmulas de Composición")
@@ -319,7 +323,7 @@ def resaltar_seleccionado(row):
 
 st.dataframe(
     df_comp.style.apply(resaltar_seleccionado, axis=1),
-    use_container_width=True,
+    width='stretch',
     hide_index=True,
     height=400
 )

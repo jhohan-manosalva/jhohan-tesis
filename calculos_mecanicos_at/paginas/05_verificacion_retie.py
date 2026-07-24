@@ -15,18 +15,17 @@ from modules.distancias_seguridad import (
     calcular_altura_minima_soporte, obtener_tabla_distancias,
     calcular_factor_altitud, listar_niveles_tension, DISTANCIAS_RETIE
 )
+from utils.estilos import encabezado_pagina
 
-st.set_page_config(page_title="Verificación RETIE", page_icon="✅", layout="wide")
 
 # Título
-st.title("✅ Verificación de Distancias de Seguridad RETIE")
-st.markdown("""
-Verifique el cumplimiento de las distancias mínimas de seguridad según la
-Tabla 13.2 del RETIE (Resolución 40117 de 2024). Las distancias dependen del
-nivel de tensión, tipo de cruce y altitud sobre el nivel del mar.
-""")
-
-st.markdown("---")
+encabezado_pagina(
+    "🛡️",
+    "Verificación de Distancias de Seguridad RETIE",
+    "Verifique el cumplimiento de las distancias mínimas de seguridad según la "
+    "Tabla 13.2 del RETIE (Resolución 40117 de 2024). Las distancias dependen del "
+    "nivel de tensión, tipo de cruce y altitud sobre el nivel del mar."
+)
 
 # Configuración
 st.subheader("⚙️ Configuración de Verificación")
@@ -115,7 +114,7 @@ for tipo_key, tipo_nombre in tipos_cruce.items():
     })
 
 df_distancias = pd.DataFrame(datos_tabla)
-st.dataframe(df_distancias, use_container_width=True, hide_index=True)
+st.dataframe(df_distancias, width='stretch', hide_index=True)
 
 st.info(f"""
 **Nivel de tensión:** {nivel_tension} kV |
@@ -160,7 +159,7 @@ with col_ver1:
 with col_ver2:
     st.markdown("#### Resultado de Verificación")
 
-    if st.button("🔄 Verificar", type="primary", use_container_width=True):
+    if st.button("🔄 Verificar", type="primary", width='stretch'):
 
         resultado = verificar_distancia_seguridad(
             flecha_maxima=flecha_maxima,
@@ -286,7 +285,7 @@ with col_ver2:
             height=500
         )
 
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
 
 st.markdown("---")
 
@@ -403,7 +402,7 @@ if st.button("📋 Verificar Todos los Cruces"):
         })
 
     df_resultados = pd.DataFrame(datos_resultados)
-    st.dataframe(df_resultados, use_container_width=True, hide_index=True)
+    st.dataframe(df_resultados, width='stretch', hide_index=True)
 
     # Resumen
     todos_cumplen = all(r['cumple'] for r in resultados_cruces)

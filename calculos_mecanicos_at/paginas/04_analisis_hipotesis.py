@@ -24,14 +24,15 @@ from modules.hipotesis_calculo import (
 from modules.cargas_mecanicas import calcular_cargas_hipotesis
 from modules.vano_regulador import calcular_vano_critico
 from utils.graficas import graficar_comparacion_hipotesis
+from utils.estilos import encabezado_pagina
 
-st.set_page_config(page_title="Análisis de Hipótesis", page_icon="📈", layout="wide")
 
-st.title("📈 Análisis de Hipótesis de Cálculo")
-st.markdown("""
-Evaluación de las 4 hipótesis según **CREG 025/1995** y **RETIE**.
-Cada hipótesis tiene su propia temperatura, velocidad de viento y factor de seguridad requerido.
-""")
+encabezado_pagina(
+    "💡",
+    "Análisis de Hipótesis de Cálculo",
+    "Evaluación de las 4 hipótesis según <b>CREG 025/1995</b> y <b>RETIE</b>. Cada hipótesis "
+    "tiene su propia temperatura, velocidad de viento y factor de seguridad requerido."
+)
 
 # Verificar datos previos
 if 'conductor' not in st.session_state:
@@ -167,12 +168,12 @@ for hip_key, params in params_hipotesis.items():
         'FS mín': params['fs_min'],
     })
 
-st.dataframe(pd.DataFrame(tabla_cargas), use_container_width=True, hide_index=True)
+st.dataframe(pd.DataFrame(tabla_cargas), width='stretch', hide_index=True)
 
 st.markdown("---")
 
 # Ejecutar análisis
-if st.button("Ejecutar Análisis de Hipótesis", type="primary", use_container_width=True):
+if st.button("Ejecutar Análisis de Hipótesis", type="primary", width='stretch'):
 
     with st.spinner("Analizando hipótesis..."):
 
@@ -234,7 +235,7 @@ if st.button("Ejecutar Análisis de Hipótesis", type="primary", use_container_w
 
             st.dataframe(
                 df_tabla.style.applymap(colorear_cumplimiento, subset=['Cumple']),
-                use_container_width=True,
+                width='stretch',
                 hide_index=True
             )
 
@@ -262,10 +263,10 @@ if st.button("Ejecutar Análisis de Hipótesis", type="primary", use_container_w
             col_graf1, col_graf2 = st.columns(2)
             with col_graf1:
                 fig_tension = graficar_comparacion_hipotesis(resultados, tipo="tension")
-                st.plotly_chart(fig_tension, use_container_width=True)
+                st.plotly_chart(fig_tension, width='stretch')
             with col_graf2:
                 fig_flecha = graficar_comparacion_hipotesis(resultados, tipo="flecha")
-                st.plotly_chart(fig_flecha, use_container_width=True)
+                st.plotly_chart(fig_flecha, width='stretch')
 
             # Verificación de cumplimiento
             st.markdown("---")
@@ -352,4 +353,4 @@ elif 'resultados_hipotesis' in st.session_state:
     st.info("Mostrando resultados del análisis anterior. Presione el botón para recalcular.")
     resultados = st.session_state['resultados_hipotesis']
     tabla = generar_tabla_comparativa(resultados)
-    st.dataframe(pd.DataFrame(tabla), use_container_width=True, hide_index=True)
+    st.dataframe(pd.DataFrame(tabla), width='stretch', hide_index=True)

@@ -12,17 +12,16 @@ import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from utils.exportar_pdf import generar_reporte_pdf
+from utils.estilos import encabezado_pagina
 
-st.set_page_config(page_title="Generar Reporte", page_icon="📄", layout="wide")
 
 # Título
-st.title("📄 Generación de Reporte PDF")
-st.markdown("""
-Genere un reporte profesional en formato PDF con todos los resultados de los
-cálculos mecánicos, análisis de hipótesis y verificaciones de distancias.
-""")
-
-st.markdown("---")
+encabezado_pagina(
+    "📋",
+    "Generación de Reporte PDF",
+    "Genere un reporte profesional en formato PDF con todos los resultados de los "
+    "cálculos mecánicos, análisis de hipótesis y verificaciones de distancias."
+)
 
 # Verificar datos necesarios
 datos_completos = True
@@ -174,7 +173,7 @@ st.markdown("---")
 # Generar reporte
 st.subheader("📥 Descargar Reporte")
 
-if st.button("🔄 Generar Reporte PDF", type="primary", use_container_width=True, disabled=not datos_completos):
+if st.button("🔄 Generar Reporte PDF", type="primary", width='stretch', disabled=not datos_completos):
 
     if not datos_completos:
         st.error("❌ Complete todos los pasos previos antes de generar el reporte")
@@ -224,7 +223,7 @@ if st.button("🔄 Generar Reporte PDF", type="primary", use_container_width=Tru
                     data=pdf_bytes,
                     file_name=nombre_archivo,
                     mime="application/pdf",
-                    use_container_width=True
+                    width='stretch'
                 )
 
                 # Mostrar vista previa de información
@@ -262,7 +261,7 @@ if st.button("🔄 Generar Reporte PDF", type="primary", use_container_width=Tru
                     # Tabla de hipótesis
                     from modules.hipotesis_calculo import generar_tabla_comparativa
                     tabla = generar_tabla_comparativa(resultados_hipotesis)
-                    st.dataframe(pd.DataFrame(tabla), use_container_width=True, hide_index=True)
+                    st.dataframe(pd.DataFrame(tabla), width='stretch', hide_index=True)
 
                     todas_cumplen = all(r.cumple_limite for r in resultados_hipotesis.values())
                     if todas_cumplen:

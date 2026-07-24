@@ -12,8 +12,8 @@ import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from modules.cargas_mecanicas import calcular_densidad_aire
+from utils.estilos import encabezado_pagina
 
-st.set_page_config(page_title="Condiciones Ambientales", page_icon="🌡️", layout="wide")
 
 # Cargar zonas climáticas
 @st.cache_data
@@ -26,12 +26,13 @@ def cargar_zonas():
 zonas = cargar_zonas()['zonas']
 
 # Título
-st.title("🌡️ Condiciones Ambientales")
-st.markdown("""
-Configure las condiciones climáticas y ambientales de diseño según la ubicación
-del proyecto en Colombia. Los parámetros predefinidos están basados en el RETIE
-y las condiciones típicas de cada zona geográfica.
-""")
+encabezado_pagina(
+    "🌩️",
+    "Condiciones Ambientales",
+    "Configure las condiciones climáticas y ambientales de diseño según la ubicación "
+    "del proyecto en Colombia. Los parámetros predefinidos están basados en el RETIE "
+    "y las condiciones típicas de cada zona geográfica."
+)
 
 st.markdown("---")
 
@@ -278,7 +279,7 @@ with col_res1:
             f"{temp_maxima_ambiente}°C"
         ]
     }
-    st.dataframe(pd.DataFrame(datos_resumen), use_container_width=True, hide_index=True)
+    st.dataframe(pd.DataFrame(datos_resumen), width='stretch', hide_index=True)
 
 with col_res2:
     datos_resumen2 = {
@@ -301,7 +302,7 @@ with col_res2:
             f"{zona.get('humedad_relativa_media_pct', 75)}%"
         ]
     }
-    st.dataframe(pd.DataFrame(datos_resumen2), use_container_width=True, hide_index=True)
+    st.dataframe(pd.DataFrame(datos_resumen2), width='stretch', hide_index=True)
 
 # Tabla comparativa de todas las zonas
 st.markdown("---")
@@ -327,7 +328,7 @@ with st.expander("📊 Ver tabla comparativa de todas las zonas climáticas"):
 
     st.dataframe(
         df_zonas.style.apply(resaltar_zona, axis=1),
-        use_container_width=True,
+        width='stretch',
         hide_index=True
     )
 

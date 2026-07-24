@@ -2,7 +2,9 @@
 # Software educativo para líneas de transmisión eléctrica
 
 # Framework de interfaz
-streamlit>=1.28.0
+# Minimo 1.56: se usan st.navigation/st.Page, st.container(key=...) y width='stretch',
+# que no existen en versiones anteriores.
+streamlit>=1.56.0
 
 # Librerías numéricas
 numpy>=1.24.0

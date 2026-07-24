@@ -20,12 +20,15 @@ from modules.catenaria import (
 from modules.cargas_mecanicas import calcular_cargas_hipotesis
 from modules.vano_regulador import calcular_vano_regulador, verificar_canton
 from utils.graficas import graficar_catenaria_plotly
+from utils.estilos import encabezado_pagina
 
-st.set_page_config(page_title="Cálculo Mecánico", page_icon="📐", layout="wide")
 
-st.title("📐 Cálculo Mecánico")
+encabezado_pagina(
+    "🗼",
+    "Cálculo Mecánico",
+    "Cálculos de tensión, flecha y cargas usando la ecuación de cambio de estado."
+)
 st.markdown("""
-Cálculos mecánicos de tensión, flecha y cargas usando la ecuación de cambio de estado.
 - Fuerza de viento: **Fv = 0.0042 × V² × d / 1000**
 - Factor de carga: **m = √(1 + (Fv/W)²)**
 - Ecuación de estado: **t₂³ + A·t₂² - B = 0**
@@ -181,7 +184,7 @@ with col_param3:
 st.markdown("---")
 
 # Ejecutar cálculo
-if st.button("Calcular", type="primary", use_container_width=True):
+if st.button("Calcular", type="primary", width='stretch'):
 
     with st.spinner("Calculando..."):
 
@@ -287,7 +290,7 @@ if st.button("Calcular", type="primary", use_container_width=True):
                         f"{g_final:.6e}",
                     ]
                 }
-                st.dataframe(pd.DataFrame(datos_entrada), use_container_width=True, hide_index=True)
+                st.dataframe(pd.DataFrame(datos_entrada), width='stretch', hide_index=True)
 
             with col_det2:
                 st.markdown("**Resultados**")
@@ -307,7 +310,7 @@ if st.button("Calcular", type="primary", use_container_width=True):
                         resultado['metodo_usado'], f"{temp_final - temp_inicial}",
                     ]
                 }
-                st.dataframe(pd.DataFrame(datos_salida), use_container_width=True, hide_index=True)
+                st.dataframe(pd.DataFrame(datos_salida), width='stretch', hide_index=True)
 
             # Calcular hipótesis adicionales
             st.markdown("---")
@@ -388,7 +391,7 @@ if st.button("Calcular", type="primary", use_container_width=True):
                         'FS': '-',
                     })
 
-            st.dataframe(pd.DataFrame(resultados_hipotesis), use_container_width=True, hide_index=True)
+            st.dataframe(pd.DataFrame(resultados_hipotesis), width='stretch', hide_index=True)
 
             # Gráfico con todas las hipótesis
             st.markdown("---")
@@ -403,7 +406,7 @@ if st.button("Calcular", type="primary", use_container_width=True):
                 titulo=f"Perfil del Conductor - Vano regulador: {vano_regulador:.1f} m",
                 hipotesis=hipotesis_grafica
             )
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width='stretch')
 
             # Verificación
             st.markdown("---")

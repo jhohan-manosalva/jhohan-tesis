@@ -234,7 +234,7 @@ if st.button("Ejecutar Análisis de Hipótesis", type="primary", width='stretch'
                 return ''
 
             st.dataframe(
-                df_tabla.style.applymap(colorear_cumplimiento, subset=['Cumple']),
+                df_tabla.style.map(colorear_cumplimiento, subset=['Cumple']),
                 width='stretch',
                 hide_index=True
             )

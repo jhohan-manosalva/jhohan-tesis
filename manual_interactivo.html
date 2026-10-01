@@ -1,0 +1,776 @@
+<title>Manual Interactivo · Cálculos Mecánicos AT</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    /* Paleta verde tomada del tema de la app (.streamlit/config.toml) */
+    --green-900: #12351f;
+    --green-800: #1b4332;
+    --green-700: #23593f;
+    --green-600: #2e7d32;
+    --green-500: #4caf50;
+    --green-400: #66bb6a;
+    --green-100: #d4edda;
+    --green-050: #e8f5e9;
+
+    --amber: #b7791f;
+    --amber-bg: #fdf5e3;
+    --red: #c0392b;
+    --red-bg: #fdecea;
+    --blue: #2874a6;
+    --blue-bg: #eaf3fb;
+
+    /* Neutros con leve sesgo verde */
+    --bg: #f4f8f4;
+    --surface: #ffffff;
+    --surface-2: #eef4ee;
+    --border: #d8e4d8;
+    --ink: #17301f;
+    --ink-soft: #4a5b4f;
+    --ink-faint: #7b8a7f;
+
+    --accent: var(--green-500);
+    --accent-strong: var(--green-600);
+    --accent-deep: var(--green-800);
+
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow: 0 1px 2px rgba(18,53,31,.06), 0 6px 20px rgba(18,53,31,.06);
+    --sans: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    --mono: "Cascadia Code", "JetBrains Mono", "Consolas", ui-monospace, monospace;
+    --sidebar-w: 274px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0e1712;
+      --surface: #15211a;
+      --surface-2: #1b2b21;
+      --border: #2a3d31;
+      --ink: #e7f0e9;
+      --ink-soft: #a9bcae;
+      --ink-faint: #7f9585;
+      --accent: #57c85c;
+      --accent-strong: #66bb6a;
+      --accent-deep: #bfe6c5;
+      --green-050: #17281d;
+      --green-100: #1e3527;
+      --amber: #e0a94a;   --amber-bg: #2c2410;
+      --red: #ef6d5f;     --red-bg: #2e1512;
+      --blue: #6db4e6;    --blue-bg: #13242f;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0e1712; --surface: #15211a; --surface-2: #1b2b21; --border: #2a3d31;
+    --ink: #e7f0e9; --ink-soft: #a9bcae; --ink-faint: #7f9585;
+    --accent: #57c85c; --accent-strong: #66bb6a; --accent-deep: #bfe6c5;
+    --green-050: #17281d; --green-100: #1e3527;
+    --amber: #e0a94a; --amber-bg: #2c2410; --red: #ef6d5f; --red-bg: #2e1512;
+    --blue: #6db4e6; --blue-bg: #13242f;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"] {
+    --bg: #f4f8f4; --surface: #ffffff; --surface-2: #eef4ee; --border: #d8e4d8;
+    --ink: #17301f; --ink-soft: #4a5b4f; --ink-faint: #7b8a7f;
+    --accent: #4caf50; --accent-strong: #2e7d32; --accent-deep: #1b4332;
+    --green-050: #e8f5e9; --green-100: #d4edda;
+    --amber: #b7791f; --amber-bg: #fdf5e3; --red: #c0392b; --red-bg: #fdecea;
+    --blue: #2874a6; --blue-bg: #eaf3fb;
+    --shadow: 0 1px 2px rgba(18,53,31,.06), 0 6px 20px rgba(18,53,31,.06);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: var(--sans); font-size: 16px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent-strong); }
+
+  /* ---------- Top bar ---------- */
+  .topbar {
+    position: sticky; top: 0; z-index: 40;
+    display: flex; align-items: center; gap: 14px;
+    padding: 12px 20px; background: color-mix(in srgb, var(--surface) 88%, transparent);
+    backdrop-filter: blur(10px); border-bottom: 1px solid var(--border);
+  }
+  .brand { display: flex; align-items: center; gap: 11px; font-weight: 700; letter-spacing: -.01em; }
+  .brand .mark {
+    width: 30px; height: 30px; border-radius: 8px; flex: none;
+    background: linear-gradient(150deg, var(--green-500), var(--green-700));
+    display: grid; place-items: center; color: #fff; font-size: 15px;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.15);
+  }
+  .brand small { display: block; font-weight: 500; font-size: 11.5px; color: var(--ink-faint); letter-spacing: .02em; }
+  .topbar .spacer { flex: 1; }
+  .progress-wrap { display: flex; align-items: center; gap: 9px; font-size: 12.5px; color: var(--ink-soft); }
+  .progress-track { width: 120px; height: 7px; border-radius: 99px; background: var(--surface-2); overflow: hidden; border: 1px solid var(--border); }
+  .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--green-500), var(--green-600)); transition: width .35s ease; }
+  .icon-btn {
+    display: grid; place-items: center; width: 38px; height: 38px; flex: none;
+    border-radius: 9px; border: 1px solid var(--border); background: var(--surface);
+    color: var(--ink); cursor: pointer; font-size: 17px;
+  }
+  .icon-btn:hover { border-color: var(--accent); color: var(--accent-strong); }
+  .menu-btn { display: none; }
+
+  /* ---------- Layout ---------- */
+  .shell { display: grid; grid-template-columns: var(--sidebar-w) minmax(0,1fr); gap: 0; max-width: 1220px; margin: 0 auto; }
+
+  nav.side {
+    position: sticky; top: 63px; align-self: start; height: calc(100vh - 63px);
+    overflow-y: auto; padding: 22px 14px 40px; border-right: 1px solid var(--border);
+  }
+  nav.side .group-label { font-size: 11px; text-transform: uppercase; letter-spacing: .09em; color: var(--ink-faint); margin: 18px 12px 7px; font-weight: 700; }
+  nav.side a {
+    display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 9px;
+    color: var(--ink-soft); text-decoration: none; font-size: 14px; font-weight: 500;
+    border: 1px solid transparent;
+  }
+  nav.side a .n { font-variant-numeric: tabular-nums; font-size: 12px; color: var(--ink-faint); min-width: 16px; }
+  nav.side a:hover { background: var(--surface-2); color: var(--ink); }
+  nav.side a.active { background: var(--green-050); color: var(--accent-deep); border-color: color-mix(in srgb, var(--accent) 40%, transparent); font-weight: 650; }
+  nav.side a.active .n { color: var(--accent-strong); }
+
+  main { padding: 30px clamp(20px, 4vw, 54px) 90px; min-width: 0; }
+
+  section.doc { scroll-margin-top: 84px; padding-block: 30px; border-top: 1px solid var(--border); }
+  section.doc:first-of-type { border-top: 0; }
+  .eyebrow { font-size: 12px; text-transform: uppercase; letter-spacing: .12em; font-weight: 700; color: var(--accent-strong); }
+  h1 { font-size: clamp(28px, 4vw, 40px); line-height: 1.12; margin: .3em 0 .35em; letter-spacing: -.02em; text-wrap: balance; }
+  h2 { font-size: clamp(22px, 3vw, 28px); line-height: 1.2; margin: .1em 0 .4em; letter-spacing: -.015em; text-wrap: balance; }
+  h3 { font-size: 17px; margin: 1.4em 0 .5em; letter-spacing: -.01em; }
+  p { color: var(--ink-soft); max-width: 68ch; }
+  main strong { color: var(--ink); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    background:
+      radial-gradient(120% 120% at 100% 0%, color-mix(in srgb, var(--green-500) 16%, transparent), transparent 60%),
+      var(--surface);
+    border: 1px solid var(--border); border-radius: var(--radius);
+    padding: clamp(24px, 4vw, 40px); box-shadow: var(--shadow); margin-bottom: 6px;
+  }
+  .hero .lead { font-size: 17.5px; max-width: 60ch; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .chip {
+    font-size: 12.5px; font-weight: 600; padding: 6px 12px; border-radius: 99px;
+    background: var(--green-050); color: var(--accent-deep); border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 10px;
+    font-size: 14.5px; font-weight: 650; text-decoration: none; cursor: pointer; border: 1px solid transparent;
+  }
+  .btn.primary { background: var(--accent-strong); color: #fff; }
+  .btn.primary:hover { background: var(--green-700); }
+  .btn.ghost { background: transparent; color: var(--accent-deep); border-color: var(--border); }
+  .btn.ghost:hover { border-color: var(--accent); }
+
+  /* ---------- Flow steps ---------- */
+  .flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 12px; margin-top: 10px; }
+  .flow-step {
+    position: relative; background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 15px 15px 16px; box-shadow: var(--shadow);
+  }
+  .flow-step .num {
+    font-variant-numeric: tabular-nums; font-size: 12px; font-weight: 700; color: #fff;
+    background: var(--accent-strong); width: 24px; height: 24px; border-radius: 7px;
+    display: grid; place-items: center; margin-bottom: 9px;
+  }
+  .flow-step .t { font-weight: 650; font-size: 14.5px; color: var(--ink); }
+  .flow-step .d { font-size: 12.5px; color: var(--ink-faint); margin-top: 3px; }
+
+  /* ---------- Module accordion ---------- */
+  .module {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    margin: 14px 0; overflow: hidden; box-shadow: var(--shadow);
+  }
+  .module > summary {
+    list-style: none; cursor: pointer; display: flex; align-items: center; gap: 14px;
+    padding: 16px 18px; user-select: none;
+  }
+  .module > summary::-webkit-details-marker { display: none; }
+  .module .badge {
+    flex: none; width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center;
+    font-weight: 700; font-variant-numeric: tabular-nums; font-size: 16px;
+    background: var(--green-050); color: var(--accent-strong); border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+  }
+  .module .head-txt { flex: 1; min-width: 0; }
+  .module .head-txt .mt { font-weight: 680; font-size: 16.5px; letter-spacing: -.01em; }
+  .module .head-txt .ms { font-size: 13px; color: var(--ink-faint); }
+  .module .chev { color: var(--ink-faint); transition: transform .25s ease; flex: none; }
+  .module[open] .chev { transform: rotate(90deg); }
+  .module .body { padding: 4px 18px 20px; border-top: 1px solid var(--border); }
+  .goal {
+    display: flex; gap: 9px; align-items: baseline; font-size: 13.5px; color: var(--ink-soft);
+    background: var(--surface-2); border-radius: 8px; padding: 10px 13px; margin: 14px 0 6px;
+  }
+  .goal b { color: var(--accent-strong); }
+
+  ol.steps { list-style: none; counter-reset: s; padding: 0; margin: 14px 0 0; display: grid; gap: 10px; }
+  ol.steps li { counter-increment: s; position: relative; padding-left: 40px; font-size: 14.5px; color: var(--ink-soft); }
+  ol.steps li::before {
+    content: counter(s); position: absolute; left: 0; top: -1px;
+    width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+    font-size: 12.5px; font-weight: 700; color: var(--accent-strong);
+    background: var(--green-050); border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+    font-variant-numeric: tabular-nums;
+  }
+  ol.steps li b { color: var(--ink); }
+
+  .callout { display: flex; gap: 11px; padding: 12px 14px; border-radius: 10px; margin: 14px 0 0; font-size: 13.5px; border: 1px solid; }
+  .callout .ic { flex: none; font-size: 16px; line-height: 1.4; }
+  .callout p { margin: 0; max-width: none; }
+  .callout.tip  { background: var(--green-050); border-color: color-mix(in srgb, var(--accent) 30%, transparent); color: var(--ink-soft); }
+  .callout.tip .ic { color: var(--accent-strong); }
+  .callout.warn { background: var(--amber-bg); border-color: color-mix(in srgb, var(--amber) 40%, transparent); color: var(--ink-soft); }
+  .callout.warn .ic { color: var(--amber); }
+  .callout.info { background: var(--blue-bg); border-color: color-mix(in srgb, var(--blue) 35%, transparent); color: var(--ink-soft); }
+  .callout.info .ic { color: var(--blue); }
+
+  .done-row { display: flex; align-items: center; gap: 10px; margin-top: 18px; padding-top: 15px; border-top: 1px dashed var(--border); }
+  .done-row label { font-size: 13.5px; color: var(--ink-soft); cursor: pointer; user-select: none; display: flex; align-items: center; gap: 9px; }
+  .done-row input { width: 17px; height: 17px; accent-color: var(--accent-strong); cursor: pointer; }
+
+  /* ---------- Code / formula ---------- */
+  .code {
+    font-family: var(--mono); font-size: 13.5px; background: var(--green-900); color: #d7f0dc;
+    border-radius: 10px; padding: 14px 16px; overflow-x: auto; line-height: 1.7; border: 1px solid rgba(255,255,255,.06);
+  }
+  :root[data-theme="light"] .code { background: #10261a; }
+  .code .c { color: #7fb98a; } /* comment */
+  .code .p { color: #ffd479; } /* prompt */
+
+  .formula {
+    font-family: var(--mono); background: var(--surface-2); border: 1px solid var(--border);
+    border-left: 3px solid var(--accent); border-radius: 8px; padding: 12px 15px; margin: 8px 0;
+    font-size: 15px; color: var(--ink); overflow-x: auto;
+  }
+  .formula .lbl { display: block; font-family: var(--sans); font-size: 12px; color: var(--ink-faint); margin-bottom: 5px; text-transform: uppercase; letter-spacing: .05em; }
+
+  /* ---------- Tables ---------- */
+  .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; margin: 14px 0; }
+  table { border-collapse: collapse; width: 100%; font-size: 13.8px; }
+  th, td { padding: 9px 13px; text-align: left; border-bottom: 1px solid var(--border); }
+  thead th { background: var(--accent-deep); color: #fff; font-weight: 650; position: sticky; top: 0; }
+  :root[data-theme="dark"] thead th { color: #06120a; }
+  tbody tr:nth-child(even) { background: var(--green-050); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .ok  { color: var(--accent-strong); font-weight: 650; }
+  .bad { color: var(--red); font-weight: 650; }
+
+  /* ---------- Tabs (casos) ---------- */
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0 0; }
+  .tab {
+    padding: 9px 15px; border-radius: 9px 9px 0 0; font-size: 14px; font-weight: 600; cursor: pointer;
+    border: 1px solid transparent; color: var(--ink-soft); background: transparent;
+  }
+  .tab:hover { color: var(--ink); }
+  .tab.active { background: var(--surface); border-color: var(--border); border-bottom-color: var(--surface); color: var(--accent-deep); }
+  .tabpanels { border: 1px solid var(--border); border-radius: 0 10px 10px 10px; background: var(--surface); padding: 20px; box-shadow: var(--shadow); }
+  .tabpanel { display: none; }
+  .tabpanel.active { display: block; animation: fade .3s ease; }
+  @keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .tabpanel.active { animation: none; } }
+  .kv { display: grid; grid-template-columns: auto 1fr; gap: 6px 18px; font-size: 14px; margin: 6px 0 0; }
+  .kv dt { color: var(--ink-faint); }
+  .kv dd { margin: 0; color: var(--ink); font-weight: 550; }
+
+  /* ---------- FAQ ---------- */
+  .faq { border: 1px solid var(--border); border-radius: 10px; background: var(--surface); overflow: hidden; margin-top: 12px; }
+  .faq details { border-bottom: 1px solid var(--border); }
+  .faq details:last-child { border-bottom: 0; }
+  .faq summary { list-style: none; cursor: pointer; padding: 15px 18px; font-weight: 600; font-size: 14.5px; display: flex; justify-content: space-between; gap: 12px; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; color: var(--accent-strong); font-size: 20px; line-height: 1; }
+  .faq details[open] summary::after { content: "\2212"; }
+  .faq .a { padding: 0 18px 16px; font-size: 14px; color: var(--ink-soft); }
+  .faq .a p { max-width: none; margin: 0; }
+
+  .refs { display: grid; gap: 10px; margin-top: 12px; }
+  .ref { display: flex; gap: 12px; padding: 13px 15px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; font-size: 14px; }
+  .ref .rk { font-weight: 700; color: var(--accent-strong); flex: none; }
+  .ref .rt b { color: var(--ink); }
+  .ref .rt span { color: var(--ink-faint); }
+
+  footer { text-align: center; color: var(--ink-faint); font-size: 12.5px; padding: 30px 20px; border-top: 1px solid var(--border); }
+  .disclaimer { background: var(--amber-bg); border: 1px solid color-mix(in srgb, var(--amber) 35%, transparent); border-radius: 10px; padding: 13px 16px; font-size: 13.5px; color: var(--ink-soft); margin-top: 22px; display: flex; gap: 10px; }
+  .disclaimer .ic { color: var(--amber); flex: none; }
+
+  .scrim { display: none; }
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .shell { grid-template-columns: 1fr; }
+    nav.side {
+      position: fixed; top: 0; left: 0; z-index: 60; height: 100vh; width: 280px;
+      background: var(--surface); transform: translateX(-102%); transition: transform .28s ease;
+      border-right: 1px solid var(--border);
+    }
+    nav.side.open { transform: none; box-shadow: var(--shadow); }
+    .menu-btn { display: grid; }
+    .scrim.show { display: block; position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 50; }
+    .progress-wrap .lbl-txt { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { nav.side { transition: none; } .progress-fill { transition: none; } }
+</style>
+
+<header class="topbar">
+  <button class="icon-btn menu-btn" id="menuBtn" aria-label="Abrir menú">≡</button>
+  <div class="brand">
+    <span class="mark">⚡</span>
+    <span>Cálculos Mecánicos AT
+      <small>Manual interactivo de usuario</small>
+    </span>
+  </div>
+  <span class="spacer"></span>
+  <div class="progress-wrap" title="Módulos marcados como completados">
+    <span class="lbl-txt">Progreso</span>
+    <span class="progress-track"><span class="progress-fill" id="progFill"></span></span>
+    <span id="progPct" style="font-variant-numeric:tabular-nums;min-width:34px">0%</span>
+  </div>
+  <button class="icon-btn" id="themeBtn" aria-label="Cambiar tema">◐</button>
+</header>
+
+<div class="scrim" id="scrim"></div>
+
+<div class="shell">
+  <nav class="side" id="side">
+    <div class="group-label">Comenzar</div>
+    <a href="#inicio"><span class="n">·</span> Introducción</a>
+    <a href="#requisitos"><span class="n">·</span> Requisitos e instalación</a>
+    <a href="#flujo"><span class="n">·</span> Flujo de trabajo</a>
+    <div class="group-label">Los 6 módulos</div>
+    <a href="#m1"><span class="n">01</span> Datos del conductor</a>
+    <a href="#m2"><span class="n">02</span> Condiciones ambientales</a>
+    <a href="#m3"><span class="n">03</span> Cálculo mecánico</a>
+    <a href="#m4"><span class="n">04</span> Análisis de hipótesis</a>
+    <a href="#m5"><span class="n">05</span> Verificación RETIE</a>
+    <a href="#m6"><span class="n">06</span> Generar reporte</a>
+    <div class="group-label">Apoyo</div>
+    <a href="#teoria"><span class="n">·</span> Fundamentos teóricos</a>
+    <a href="#casos"><span class="n">·</span> Casos de ejemplo</a>
+    <a href="#problemas"><span class="n">·</span> Solución de problemas</a>
+    <a href="#faq"><span class="n">·</span> Preguntas frecuentes</a>
+    <a href="#refs"><span class="n">·</span> Referencias</a>
+  </nav>
+
+  <main>
+    <!-- INTRO -->
+    <section class="doc" id="inicio">
+      <div class="hero">
+        <div class="eyebrow">Unidades Tecnológicas de Santander · v1.0</div>
+        <h1>Diseña líneas de transmisión, paso a paso</h1>
+        <p class="lead">Herramienta educativa para los <strong>cálculos mecánicos</strong> de líneas de alta tensión, conforme al <strong>RETIE</strong> y a estándares internacionales. Este manual te lleva de la instalación al reporte final, módulo por módulo.</p>
+        <div class="chips">
+          <span class="chip">34.5 – 500 kV</span>
+          <span class="chip">ACSR · AAAC · AAC</span>
+          <span class="chip">Ecuación de estado</span>
+          <span class="chip">4 hipótesis RETIE</span>
+          <span class="chip">Distancias de seguridad</span>
+          <span class="chip">Ampacity IEEE 738</span>
+        </div>
+        <div class="hero-actions">
+          <a class="btn primary" href="#requisitos">Empezar por la instalación →</a>
+          <a class="btn ghost" href="#flujo">Ver el flujo de trabajo</a>
+        </div>
+      </div>
+      <h3>¿Qué calcula el software?</h3>
+      <p>Ecuación de cambio de estado, flechas y longitud de conductor, cargas mecánicas (viento, peso, hielo), vano regulador y crítico, las cuatro hipótesis de diseño y la verificación de distancias mínimas de seguridad. Todo pensado como apoyo académico para el diseño de líneas de transmisión.</p>
+    </section>
+
+    <!-- REQUISITOS -->
+    <section class="doc" id="requisitos">
+      <div class="eyebrow">Antes de empezar</div>
+      <h2>Requisitos e instalación</h2>
+      <p>Necesitas <strong>Python 3.10 o superior</strong>, 4 GB de RAM (recomendado 8 GB) y un navegador actual (Chrome, Edge, Firefox o Safari). El programa se ejecuta en tu navegador de forma local.</p>
+
+      <h3>1 · Verifica Python</h3>
+      <div class="code"><span class="p">$</span> python --version
+<span class="p">$</span> pip --version</div>
+      <div class="callout warn"><span class="ic">▲</span><p>Al instalar Python en Windows, marca la casilla <strong>“Add Python to PATH”</strong>. Sin ella, los comandos anteriores no funcionarán.</p></div>
+
+      <h3>2 · Entorno virtual e dependencias</h3>
+      <div class="code"><span class="c"># Situado en la carpeta calculos_mecanicos_at</span>
+python -m venv venv
+venv\Scripts\activate        <span class="c"># Windows</span>
+<span class="c"># source venv/bin/activate  # macOS / Linux</span>
+pip install -r requirements.txt</div>
+
+      <h3>3 · Ejecuta la aplicación</h3>
+      <div class="code"><span class="p">$</span> streamlit run app.py</div>
+      <div class="callout tip"><span class="ic">●</span><p>Se abrirá automáticamente en <strong>http://localhost:8501</strong>. Si no abre solo, copia esa dirección en tu navegador.</p></div>
+    </section>
+
+    <!-- FLUJO -->
+    <section class="doc" id="flujo">
+      <div class="eyebrow">Recorrido</div>
+      <h2>El flujo de trabajo en 6 pasos</h2>
+      <p>Los módulos están numerados porque son una <strong>secuencia</strong>: cada uno usa los resultados del anterior. Recórrelos en orden la primera vez.</p>
+      <div class="flow">
+        <a class="flow-step" href="#m1" style="text-decoration:none"><div class="num">1</div><div class="t">Datos del conductor</div><div class="d">Elige el cable y sus propiedades</div></a>
+        <a class="flow-step" href="#m2" style="text-decoration:none"><div class="num">2</div><div class="t">Condiciones ambientales</div><div class="d">Zona, altitud, temperatura y viento</div></a>
+        <a class="flow-step" href="#m3" style="text-decoration:none"><div class="num">3</div><div class="t">Cálculo mecánico</div><div class="d">Tensiones, flechas y cargas</div></a>
+        <a class="flow-step" href="#m4" style="text-decoration:none"><div class="num">4</div><div class="t">Hipótesis RETIE</div><div class="d">Evalúa las 4 hipótesis A–D</div></a>
+        <a class="flow-step" href="#m5" style="text-decoration:none"><div class="num">5</div><div class="t">Verificación RETIE</div><div class="d">Distancias mínimas de seguridad</div></a>
+        <a class="flow-step" href="#m6" style="text-decoration:none"><div class="num">6</div><div class="t">Generar reporte</div><div class="d">Exporta los resultados en PDF</div></a>
+      </div>
+      <div class="callout info" style="margin-top:18px"><span class="ic">◆</span><p>Marca cada módulo como <strong>completado</strong> al terminarlo (casilla al final de cada tarjeta) y la barra de progreso de arriba se irá llenando.</p></div>
+    </section>
+
+    <!-- MÓDULO 1 -->
+    <details class="module" id="m1" open>
+      <summary>
+        <span class="badge">01</span>
+        <span class="head-txt"><div class="mt">Datos del conductor</div><div class="ms">Selecciona el cable y revisa sus propiedades</div></span>
+        <span class="chev">›</span>
+      </summary>
+      <div class="body">
+        <div class="goal"><b>Objetivo:</b> escoger el conductor que se usará en todo el diseño.</div>
+        <ol class="steps">
+          <li>Selecciona el <b>tipo de conductor</b>: ACSR, AAAC o AAC.</li>
+          <li>Selecciona el <b>calibre/código</b> (p. ej. Hawk, Drake, Penguin).</li>
+          <li>Revisa las propiedades: <b>sección, diámetro, peso por km, carga de rotura, módulo de elasticidad y coeficiente de dilatación</b>.</li>
+        </ol>
+        <div class="callout tip"><span class="ic">●</span><p>¿Tu conductor no está en la base de datos? Expande <strong>“Ingresar Conductor Personalizado”</strong>, completa todos los campos y pulsa <strong>“Usar Conductor Personalizado”</strong>.</p></div>
+        <div class="done-row"><label><input type="checkbox" class="done" data-m="m1"> Marcar módulo como completado</label></div>
+      </div>
+    </details>
+
+    <!-- MÓDULO 2 -->
+    <details class="module" id="m2">
+      <summary>
+        <span class="badge">02</span>
+        <span class="head-txt"><div class="mt">Condiciones ambientales</div><div class="ms">Clima, altitud, temperaturas y viento del proyecto</div></span>
+        <span class="chev">›</span>
+      </summary>
+      <div class="body">
+        <div class="goal"><b>Objetivo:</b> configurar el entorno climático donde operará la línea.</div>
+        <ol class="steps">
+          <li>Selecciona la <b>zona climática</b> de Colombia.</li>
+          <li>Ajusta la <b>altitud</b> específica del proyecto (msnm).</li>
+          <li>Verifica las <b>temperaturas</b>: mínima (Hip. B), media (EDS) y máxima ambiente.</li>
+          <li>Ajusta la <b>velocidad de viento de diseño</b>.</li>
+          <li>Configura la <b>temperatura de operación</b> del conductor y el <b>% EDS</b> (típico 18%).</li>
+        </ol>
+        <div class="callout info"><span class="ic">◆</span><p><strong>Corrección por altitud:</strong> para tensiones &gt; 57.5 kV y altitudes &gt; 1000 msnm, el sistema aplica el factor automáticamente.</p></div>
+        <div class="done-row"><label><input type="checkbox" class="done" data-m="m2"> Marcar módulo como completado</label></div>
+      </div>
+    </details>
+
+    <!-- MÓDULO 3 -->
+    <details class="module" id="m3">
+      <summary>
+        <span class="badge">03</span>
+        <span class="head-txt"><div class="mt">Cálculo mecánico</div><div class="ms">Tensiones, flechas y cargas para tus vanos</div></span>
+        <span class="chev">›</span>
+      </summary>
+      <div class="body">
+        <div class="goal"><b>Objetivo:</b> calcular tensiones, flechas y cargas del conductor.</div>
+        <ol class="steps">
+          <li>Configura los <b>vanos</b>: un solo vano, o varios separados por comas.</li>
+          <li>Verifica el <b>vano regulador</b> calculado.</li>
+          <li>Define los <b>parámetros</b>: temperatura inicial/final, incluir o no viento y método de solución (Cardano, Newton o Brent).</li>
+          <li>Pulsa <b>“Calcular”</b>.</li>
+        </ol>
+        <h3 style="margin-top:18px">Cómo interpretar los resultados</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Resultado</th><th>Significa</th></tr></thead>
+            <tbody>
+              <tr><td><b>Tensión unitaria final</b></td><td>Tensión del conductor en kg/mm².</td></tr>
+              <tr><td><b>% Carga de rotura</b></td><td>Debe ser ≤ 50% para la Hipótesis A.</td></tr>
+              <tr><td><b>Flecha máxima</b></td><td>Descuelgue del conductor, en metros.</td></tr>
+              <tr><td><b>Longitud del conductor</b></td><td>Siempre mayor que el vano.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout tip"><span class="ic">●</span><p><strong>Cardano</strong> es el método más rápido y preciso para la mayoría de casos. Usa Newton o Brent solo si Cardano falla.</p></div>
+        <div class="done-row"><label><input type="checkbox" class="done" data-m="m3"> Marcar módulo como completado</label></div>
+      </div>
+    </details>
+
+    <!-- MÓDULO 4 -->
+    <details class="module" id="m4">
+      <summary>
+        <span class="badge">04</span>
+        <span class="head-txt"><div class="mt">Análisis de hipótesis</div><div class="ms">Las 4 hipótesis de diseño RETIE / CREG 025</div></span>
+        <span class="chev">›</span>
+      </summary>
+      <div class="body">
+        <div class="goal"><b>Objetivo:</b> comprobar que el diseño cumple las cuatro hipótesis de carga.</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Hip.</th><th>Condición</th><th>Límite</th></tr></thead>
+            <tbody>
+              <tr><td><b>A</b></td><td>Viento máximo + temp. coincidente</td><td>σ ≤ 50% rotura</td></tr>
+              <tr><td><b>B</b></td><td>Temperatura mínima sin viento</td><td>σ ≤ 35% rotura</td></tr>
+              <tr><td><b>C</b></td><td>EDS — temperatura media (operación diaria)</td><td>σ ≈ 15–18% rotura</td></tr>
+              <tr><td><b>D</b></td><td>Temperatura máxima de operación</td><td>Verificar distancias</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ol class="steps">
+          <li>Ajusta el <b>% EDS</b> y la <b>temperatura de operación</b> si es necesario.</li>
+          <li>Pulsa <b>“Ejecutar Análisis de Hipótesis”</b>.</li>
+          <li>Revisa la <b>tabla comparativa</b> y verifica que todas cumplan (<span class="ok">✓</span>).</li>
+        </ol>
+        <div class="callout tip"><span class="ic">●</span><p>La flecha de la <strong>Hipótesis D</strong> (temperatura máxima) es la que se usa después en la verificación de distancias del Módulo 5.</p></div>
+        <div class="done-row"><label><input type="checkbox" class="done" data-m="m4"> Marcar módulo como completado</label></div>
+      </div>
+    </details>
+
+    <!-- MÓDULO 5 -->
+    <details class="module" id="m5">
+      <summary>
+        <span class="badge">05</span>
+        <span class="head-txt"><div class="mt">Verificación RETIE</div><div class="ms">Distancias mínimas de seguridad (Tabla 13.2)</div></span>
+        <span class="chev">›</span>
+      </summary>
+      <div class="body">
+        <div class="goal"><b>Objetivo:</b> comprobar que se cumplen las distancias mínimas al terreno y a los cruces.</div>
+        <ol class="steps">
+          <li>Selecciona el <b>nivel de tensión</b> y la <b>altitud</b>.</li>
+          <li>Ingresa la <b>flecha máxima</b> (tomada de la Hipótesis D).</li>
+          <li>Selecciona el <b>tipo de cruce</b> a verificar.</li>
+          <li>Ingresa la <b>altura del soporte</b> y la del <b>obstáculo</b> (si aplica).</li>
+          <li>Pulsa <b>“Verificar”</b>.</li>
+        </ol>
+        <h3 style="margin-top:18px">Tabla 13.2 — Distancias mínimas (m)</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Tipo de cruce</th><th class="num">34.5</th><th class="num">57.5</th><th class="num">115</th><th class="num">230</th><th class="num">500 kV</th></tr></thead>
+            <tbody>
+              <tr><td>Terreno transitable</td><td class="num">5.0</td><td class="num">5.0</td><td class="num">5.5</td><td class="num">6.5</td><td class="num">9.0</td></tr>
+              <tr><td>Terreno no transitable</td><td class="num">4.5</td><td class="num">4.5</td><td class="num">5.0</td><td class="num">6.0</td><td class="num">8.5</td></tr>
+              <tr><td>Edificaciones</td><td class="num">3.7</td><td class="num">3.7</td><td class="num">4.0</td><td class="num">4.5</td><td class="num">6.5</td></tr>
+              <tr><td>Carreteras y vías</td><td class="num">6.1</td><td class="num">6.1</td><td class="num">6.7</td><td class="num">8.5</td><td class="num">11.5</td></tr>
+              <tr><td>Ferrocarriles</td><td class="num">7.0</td><td class="num">7.0</td><td class="num">7.5</td><td class="num">9.0</td><td class="num">12.5</td></tr>
+              <tr><td>Líneas de baja tensión</td><td class="num">2.0</td><td class="num">2.0</td><td class="num">2.5</td><td class="num">3.5</td><td class="num">5.5</td></tr>
+              <tr><td>Líneas de comunicaciones</td><td class="num">2.0</td><td class="num">2.0</td><td class="num">2.5</td><td class="num">3.5</td><td class="num">5.5</td></tr>
+              <tr><td>Aguas navegables</td><td class="num">8.5</td><td class="num">8.5</td><td class="num">9.0</td><td class="num">10.5</td><td class="num">14.0</td></tr>
+              <tr><td>Aguas no navegables</td><td class="num">5.0</td><td class="num">5.0</td><td class="num">5.5</td><td class="num">6.5</td><td class="num">9.0</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout info"><span class="ic">◆</span><p>Para <strong>&gt; 57.5 kV y &gt; 1000 msnm</strong> se aplica el factor de corrección por altitud: <span style="font-family:var(--mono)">1 + 0.03 × ((altitud − 1000) / 300)</span>.</p></div>
+        <div class="done-row"><label><input type="checkbox" class="done" data-m="m5"> Marcar módulo como completado</label></div>
+      </div>
+    </details>
+
+    <!-- MÓDULO 6 -->
+    <details class="module" id="m6">
+      <summary>
+        <span class="badge">06</span>
+        <span class="head-txt"><div class="mt">Generar reporte</div><div class="ms">Exporta todos los resultados en PDF</div></span>
+        <span class="chev">›</span>
+      </summary>
+      <div class="body">
+        <div class="goal"><b>Objetivo:</b> obtener un documento profesional con todos los cálculos.</div>
+        <ol class="steps">
+          <li>Completa la <b>información del proyecto</b>: nombre, ubicación, nivel de tensión, autor y fecha.</li>
+          <li>Selecciona el <b>contenido a incluir</b> en el reporte.</li>
+          <li>Pulsa <b>“Generar Reporte PDF”</b> y luego <b>“Descargar Reporte PDF”</b>.</li>
+        </ol>
+        <div class="callout tip"><span class="ic">●</span><p>El reporte reúne datos del conductor, condiciones, resultados mecánicos, las 4 hipótesis, la verificación de distancias y las referencias normativas.</p></div>
+        <div class="done-row"><label><input type="checkbox" class="done" data-m="m6"> Marcar módulo como completado</label></div>
+      </div>
+    </details>
+
+    <!-- TEORÍA -->
+    <section class="doc" id="teoria">
+      <div class="eyebrow">Fundamentos</div>
+      <h2>Fundamentos teóricos</h2>
+      <p>Las fórmulas clave detrás de los cálculos, por si necesitas justificar un resultado en tu informe.</p>
+
+      <h3>Ecuación de cambio de estado</h3>
+      <div class="formula"><span class="lbl">Forma cúbica</span>σ₂³ − σ₂² · A − B = 0</div>
+      <div class="formula"><span class="lbl">Coeficientes</span>A = σ₁ − E·α·(t₂−t₁) + (E·a²·g₁²) / (24·σ₁²)&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;B = (E·a²·g₂²) / 24</div>
+      <p style="font-size:13.5px">Relaciona la tensión del conductor entre dos estados (temperatura y carga). σ = tensión unitaria (kg/mm²), E = módulo de elasticidad, α = coef. de dilatación, a = vano regulador, g = carga específica.</p>
+
+      <h3>Flecha</h3>
+      <div class="formula"><span class="lbl">Aproximación parabólica (f/a &lt; 5%)</span>f = (w · a²) / (8 · H)</div>
+      <div class="formula"><span class="lbl">Catenaria exacta</span>f = c · [cosh(a / (2·c)) − 1]&nbsp;&nbsp;&nbsp;con&nbsp;&nbsp;c = H / w</div>
+
+      <h3>Vano regulador</h3>
+      <div class="formula"><span class="lbl">Cantón completo</span>Lr = √( Σ(Lᵢ³) / Σ(Lᵢ) )</div>
+      <div class="callout warn"><span class="ic">▲</span><p><strong>Regla del cantón:</strong> el vano máximo no debe superar <strong>2.5 × el vano regulador</strong>.</p></div>
+
+      <h3>Cargas mecánicas</h3>
+      <div class="formula"><span class="lbl">Carga de viento</span>p_v = (ρ · V² · Cd · d) / 2</div>
+      <div class="formula"><span class="lbl">Peso resultante</span>w_r = √( w_c² + p_v² )</div>
+    </section>
+
+    <!-- CASOS -->
+    <section class="doc" id="casos">
+      <div class="eyebrow">Práctica</div>
+      <h2>Casos de ejemplo</h2>
+      <p>Tres escenarios típicos colombianos para validar que estás usando bien el software.</p>
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-tab="c1">115 kV · Santanderes</button>
+        <button class="tab" data-tab="c2">230 kV · Costa Caribe</button>
+        <button class="tab" data-tab="c3">34.5 kV · Zona Andina</button>
+      </div>
+      <div class="tabpanels">
+        <div class="tabpanel active" id="c1">
+          <h3 style="margin-top:0">Línea 115 kV en los Santanderes</h3>
+          <dl class="kv">
+            <dt>Conductor</dt><dd>Hawk (ACSR 477 kcmil)</dd>
+            <dt>Vanos</dt><dd>280, 320, 300, 290, 310 m</dd>
+            <dt>Altitud</dt><dd>1000 msnm</dd>
+            <dt>Viento</dt><dd>25 m/s (90 km/h)</dd>
+            <dt>EDS</dt><dd>18%</dd>
+          </dl>
+          <div class="callout tip" style="margin-top:16px"><span class="ic">●</span><p><strong>Esperado:</strong> vano regulador ≈ 300 m · flecha máxima (75 °C) ≈ 10–12 m · todas las hipótesis deben cumplir.</p></div>
+        </div>
+        <div class="tabpanel" id="c2">
+          <h3 style="margin-top:0">Línea 230 kV en la Costa Caribe</h3>
+          <dl class="kv">
+            <dt>Conductor</dt><dd>Drake (ACSR 795 kcmil)</dd>
+            <dt>Vano regulador</dt><dd>350 m</dd>
+            <dt>Altitud</dt><dd>50 msnm</dd>
+            <dt>Viento</dt><dd>27.8 m/s (100 km/h)</dd>
+            <dt>EDS</dt><dd>18%</dd>
+          </dl>
+          <div class="callout info" style="margin-top:16px"><span class="ic">◆</span><p><strong>Ten en cuenta:</strong> mayor carga de viento y temperatura ambiente más alta que en el interior.</p></div>
+        </div>
+        <div class="tabpanel" id="c3">
+          <h3 style="margin-top:0">Línea 34.5 kV en zona Andina</h3>
+          <dl class="kv">
+            <dt>Conductor</dt><dd>Penguin (ACSR 4/0 AWG)</dd>
+            <dt>Vano único</dt><dd>200 m</dd>
+            <dt>Altitud</dt><dd>2600 msnm</dd>
+            <dt>Viento</dt><dd>23.6 m/s (85 km/h)</dd>
+            <dt>EDS</dt><dd>18%</dd>
+          </dl>
+          <div class="callout warn" style="margin-top:16px"><span class="ic">▲</span><p><strong>Ten en cuenta:</strong> aplica corrección por altitud para las distancias y considera la menor densidad del aire.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEMAS -->
+    <section class="doc" id="problemas">
+      <div class="eyebrow">Ayuda</div>
+      <h2>Solución de problemas</h2>
+      <div class="faq" style="margin-top:14px">
+        <details><summary>“La tensión calculada excede el límite”</summary><div class="a"><p>Reduce la tensión EDS inicial, verifica que el vano no sea excesivo o considera un conductor de mayor sección.</p></div></details>
+        <details><summary>“No se encontró solución física válida”</summary><div class="a"><p>Revisa los parámetros de entrada: la combinación de temperatura y carga puede ser incompatible. Prueba con otro método de solución (Newton o Brent).</p></div></details>
+        <details><summary>“El cantón no es válido”</summary><div class="a"><p>El vano máximo supera 2.5 veces el regulador. Redistribuye las estructuras o divide el cantón.</p></div></details>
+        <details><summary>“Distancia no cumple RETIE”</summary><div class="a"><p>Aumenta la altura del soporte, reduce la flecha (subiendo la tensión EDS) o verifica que la flecha usada sea la de la Hipótesis D.</p></div></details>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="doc" id="faq">
+      <div class="eyebrow">Dudas frecuentes</div>
+      <h2>Preguntas frecuentes</h2>
+      <div class="faq">
+        <details><summary>¿Cuál método de solución debo usar?</summary><div class="a"><p>Cardano es el más rápido y preciso para la mayoría de casos. Usa Newton o Brent solo si Cardano falla.</p></div></details>
+        <details><summary>¿Por qué la tensión aumenta al bajar la temperatura?</summary><div class="a"><p>El conductor se contrae térmicamente, lo que incrementa la tensión mecánica. Por eso la Hipótesis B (temperatura mínima) es crítica.</p></div></details>
+        <details><summary>¿Cuándo debo considerar carga de hielo?</summary><div class="a"><p>En Colombia, solo en páramos por encima de 3500 msnm donde puede haber formación de escarcha.</p></div></details>
+        <details><summary>¿Qué valor de EDS debo usar?</summary><div class="a"><p>Típicamente 15–20%. Un EDS menor reduce la fatiga por vibración eólica, pero aumenta la flecha.</p></div></details>
+      </div>
+    </section>
+
+    <!-- REFS -->
+    <section class="doc" id="refs">
+      <div class="eyebrow">Normativa</div>
+      <h2>Referencias</h2>
+      <div class="refs">
+        <div class="ref"><span class="rk">1</span><span class="rt"><b>RETIE — Resolución 40117 de 2024.</b> <span>Ministerio de Minas y Energía de Colombia. Art. 13 (distancias de seguridad), Art. 22 (líneas de transmisión).</span></span></div>
+        <div class="ref"><span class="rk">2</span><span class="rt"><b>NTC 2050.</b> <span>Código Eléctrico Colombiano (basado en NFPA 70).</span></span></div>
+        <div class="ref"><span class="rk">3</span><span class="rt"><b>IEEE Std 738-2023.</b> <span>Calculating the Current-Temperature Relationship of Bare Overhead Conductors.</span></span></div>
+        <div class="ref"><span class="rk">4</span><span class="rt"><b>IEC 60826:2017.</b> <span>Design criteria of overhead transmission lines.</span></span></div>
+        <div class="ref"><span class="rk">5</span><span class="rt"><b>CREG 025 de 1995.</b> <span>Código de Redes.</span></span></div>
+        <div class="ref"><span class="rk">6</span><span class="rt"><b>NSR-10.</b> <span>Reglamento Colombiano de Construcción Sismo Resistente (velocidades de viento).</span></span></div>
+      </div>
+      <div class="disclaimer"><span class="ic">▲</span><p>Este software es de <strong>carácter educativo</strong>. Los resultados deben ser verificados por un profesional calificado antes de su uso en proyectos reales.</p></div>
+    </section>
+  </main>
+</div>
+
+<footer>
+  Tecnología en Electricidad Industrial · Unidades Tecnológicas de Santander · Bucaramanga, Colombia · 2025
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var store = {
+    get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  };
+
+  /* ---- Theme ---- */
+  var root = document.documentElement;
+  var themeBtn = document.getElementById("themeBtn");
+  var saved = store.get("cmat-theme");
+  if (saved) root.setAttribute("data-theme", saved);
+  themeBtn.addEventListener("click", function () {
+    var cur = root.getAttribute("data-theme");
+    if (!cur) cur = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    var next = cur === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    store.set("cmat-theme", next);
+  });
+
+  /* ---- Mobile menu ---- */
+  var side = document.getElementById("side");
+  var scrim = document.getElementById("scrim");
+  var menuBtn = document.getElementById("menuBtn");
+  function closeMenu() { side.classList.remove("open"); scrim.classList.remove("show"); }
+  menuBtn.addEventListener("click", function () { side.classList.toggle("open"); scrim.classList.toggle("show"); });
+  scrim.addEventListener("click", closeMenu);
+  side.addEventListener("click", function (e) { if (e.target.closest("a")) closeMenu(); });
+
+  /* ---- Scroll-spy ---- */
+  var links = Array.prototype.slice.call(side.querySelectorAll("a[href^='#']"));
+  var map = {};
+  links.forEach(function (a) { map[a.getAttribute("href").slice(1)] = a; });
+  var targets = links.map(function (a) { return document.getElementById(a.getAttribute("href").slice(1)); }).filter(Boolean);
+  var spy = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) {
+        links.forEach(function (l) { l.classList.remove("active"); });
+        var a = map[en.target.id];
+        if (a) a.classList.add("active");
+      }
+    });
+  }, { rootMargin: "-45% 0px -50% 0px", threshold: 0 });
+  targets.forEach(function (t) { spy.observe(t); });
+
+  /* ---- Tabs ---- */
+  var tabs = Array.prototype.slice.call(document.querySelectorAll(".tab"));
+  tabs.forEach(function (tab) {
+    tab.addEventListener("click", function () {
+      var id = tab.getAttribute("data-tab");
+      tabs.forEach(function (t) { t.classList.toggle("active", t === tab); });
+      document.querySelectorAll(".tabpanel").forEach(function (p) {
+        p.classList.toggle("active", p.id === id);
+      });
+    });
+  });
+
+  /* ---- Progress checklist ---- */
+  var boxes = Array.prototype.slice.call(document.querySelectorAll(".done"));
+  var fill = document.getElementById("progFill");
+  var pct = document.getElementById("progPct");
+  function refresh() {
+    var done = boxes.filter(function (b) { return b.checked; }).length;
+    var p = Math.round(done / boxes.length * 100);
+    fill.style.width = p + "%";
+    pct.textContent = p + "%";
+  }
+  boxes.forEach(function (b) {
+    var key = "cmat-done-" + b.getAttribute("data-m");
+    if (store.get(key) === "1") b.checked = true;
+    b.addEventListener("change", function () {
+      store.set(key, b.checked ? "1" : "0");
+      refresh();
+    });
+  });
+  refresh();
+})();
+</script>

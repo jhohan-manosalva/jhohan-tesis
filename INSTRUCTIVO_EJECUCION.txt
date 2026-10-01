@@ -1,0 +1,191 @@
+============================================================
+   INSTRUCTIVO DE EJECUCION Y DESPLIEGUE
+============================================================
+
+Software de Calculos Mecanicos para Lineas de Transmision
+de Alta Tension
+
+Trabajo de Grado - Tecnologia en Electricidad Industrial - UTS
+Autor:    Jhohan Felipe Manosalva Sierra
+Director: Ing. MPE Fabio Alfonso Gonzalez
+Ano:      2025
+
+============================================================
+
+
+------------------------------------------------------------
+1. NOTA IMPORTANTE: ESTA APLICACION NO SE "COMPILA"
+------------------------------------------------------------
+
+Este software esta desarrollado en Python con el framework
+Streamlit. Python es un lenguaje interpretado, por lo que NO
+existe un paso de compilacion como en C, C++ o Java. La
+aplicacion se EJECUTA directamente.
+
+Existen tres formas de ponerla en funcionamiento, segun el
+objetivo:
+
+ A. Ejecutar localmente ... Uso normal / sustentacion en tu PC.
+                            (Requiere Python instalado)
+
+ B. Generar un .exe ....... Entregar un instalador que funcione
+                            sin instalar Python.
+
+ C. Publicar en la nube ... Compartir una URL publica (jurado,
+                            director). No requiere Python.
+
+
+------------------------------------------------------------
+2. REQUISITOS PREVIOS
+------------------------------------------------------------
+
+ - Python 3.11 o superior.
+   Descargar de: https://www.python.org/downloads/
+   Durante la instalacion marcar la casilla "Add Python to PATH".
+
+ - Conexion a internet (solo para instalar las dependencias
+   la primera vez).
+
+Para verificar que Python esta instalado, abre PowerShell y
+ejecuta:
+
+    python --version
+
+Debe mostrar algo como:  Python 3.11.9
+
+
+------------------------------------------------------------
+3. OPCION A - EJECUTAR LA APLICACION LOCALMENTE
+------------------------------------------------------------
+
+Es la forma recomendada para el uso diario y para la
+sustentacion en tu propio computador.
+
+  1. Ubicarse en la carpeta del proyecto:
+
+     cd "C:\Users\barbi\Desktop\Trabajo de grado Jhohan\jhohan_tesis"
+
+  2. (Recomendado) Crear un entorno virtual aislado:
+
+     python -m venv venv
+
+  3. Activar el entorno virtual:
+
+     .\venv\Scripts\Activate.ps1
+
+  4. Instalar las dependencias del proyecto:
+
+     pip install -r requirements.txt
+
+  5. Ejecutar la aplicacion:
+
+     python -m streamlit run calculos_mecanicos_at/app.py
+
+La aplicacion se abre automaticamente en el navegador en:
+
+     http://localhost:8501
+
+ - Para detenerla: presiona Ctrl + C en la terminal.
+ - Para volver a ejecutarla otro dia: repite solo los pasos
+   1, 3 y 5 (el entorno virtual y las dependencias ya quedan
+   instalados).
+
+ NOTA: Que es el entorno virtual (venv)?
+ Es una carpeta que aisla las librerias de este proyecto de
+ las del resto del computador. No es obligatorio, pero es muy
+ recomendable en un trabajo de grado porque garantiza que la
+ aplicacion funcione igual en cualquier maquina y evita
+ conflictos entre versiones de librerias.
+
+ SI POWERSHELL BLOQUEA LA ACTIVACION DEL ENTORNO:
+ Windows puede impedir la ejecucion de scripts. Si el paso 3
+ falla, ejecuta una sola vez en PowerShell (usuario normal):
+
+     Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+
+ Luego vuelve a intentar el paso 3.
+
+
+------------------------------------------------------------
+4. OPCION B - GENERAR UN EJECUTABLE .EXE (SIN PYTHON)
+------------------------------------------------------------
+
+Util si necesitas entregar la aplicacion a alguien que NO
+tiene Python instalado. Se usa la herramienta PyInstaller.
+
+Empaquetar Streamlit como .exe tiene cierta dificultad porque
+hay que incluir manualmente las carpetas pages, modules,
+config, utils y .streamlit.
+
+  1. Con el entorno virtual activado, instalar PyInstaller:
+
+     pip install pyinstaller
+
+  2. Generar el ejecutable (comando en una sola linea):
+
+     pyinstaller --name CalculosMecanicosAT --onefile ^
+       --add-data "calculos_mecanicos_at/pages;pages" ^
+       --add-data "calculos_mecanicos_at/modules;modules" ^
+       --add-data "calculos_mecanicos_at/config;config" ^
+       --add-data "calculos_mecanicos_at/utils;utils" ^
+       --add-data "calculos_mecanicos_at/.streamlit;.streamlit" ^
+       calculos_mecanicos_at/app.py
+
+El ejecutable se genera en la carpeta dist/.
+
+ NOTA: Streamlit necesita un pequeno lanzador para arrancar
+ como .exe. Si esta opcion es la que necesitas para tu entrega,
+ avisame y te preparo el archivo lanzador (run_app.py) y el
+ comando ajustado, ya que el empaquetado de Streamlit requiere
+ configuracion adicional.
+
+
+------------------------------------------------------------
+5. OPCION C - PUBLICAR EN LA NUBE (STREAMLIT COMMUNITY CLOUD)
+------------------------------------------------------------
+
+La forma mas sencilla de que tu director y jurado abran la
+aplicacion desde cualquier dispositivo con una URL, sin
+instalar nada. Es GRATUITA.
+
+  1. Sube el proyecto a un repositorio en GitHub.
+
+  2. Entra a https://share.streamlit.io e inicia sesion con
+     tu cuenta de GitHub.
+
+  3. Haz clic en "New app" y selecciona:
+       - Repository:      tu repositorio.
+       - Branch:          main
+       - Main file path:  calculos_mecanicos_at/app.py
+
+  4. Haz clic en "Deploy". En pocos minutos obtendras una URL
+     publica, por ejemplo:  https://jhohan-tesis.streamlit.app
+
+Cada vez que actualices el codigo en GitHub, la aplicacion en
+la nube se actualiza automaticamente.
+
+
+------------------------------------------------------------
+6. EJECUTAR LAS PRUEBAS (OPCIONAL)
+------------------------------------------------------------
+
+El proyecto incluye pruebas automaticas para validar los
+calculos:
+
+     pytest calculos_mecanicos_at/tests/
+
+
+------------------------------------------------------------
+7. RESUMEN RAPIDO
+------------------------------------------------------------
+
+Para la mayoria de los casos (sustentacion, revision del
+director), usa:
+
+     cd "C:\Users\barbi\Desktop\Trabajo de grado Jhohan\jhohan_tesis"
+     pip install -r requirements.txt
+     python -m streamlit run calculos_mecanicos_at/app.py
+
+Y abre  http://localhost:8501  en el navegador.
+
+============================================================

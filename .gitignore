@@ -10,6 +10,10 @@ env/
 # Streamlit
 .streamlit/secrets.toml
 
+# Artefactos de PyInstaller (se regeneran al construir el .exe)
+build/
+dist/
+
 # Claude Code (configuración local)
 .claude/
 
